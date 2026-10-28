@@ -1,0 +1,55 @@
+/* Optional theme layer: the original light palette stays in style.css. */
+:root{color-scheme:light}
+.theme-toggle{
+  position:fixed;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));
+  z-index:90;width:44px;height:44px;display:grid;place-items:center;padding:0;
+  border-radius:50%;border:1px solid #ffffffa6;color:#591c30;
+  background:linear-gradient(135deg,#fffaf2cc,#f8f4ed99);
+  backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
+  box-shadow:inset 0 1px 0 #ffffffb3,0 4px 18px #35131f20;
+}
+.theme-toggle svg{width:21px;height:21px;grid-area:1/1}
+.theme-toggle .theme-sun{display:none}
+[data-theme=dark] .theme-toggle .theme-sun{display:block}
+[data-theme=dark] .theme-toggle .theme-moon{display:none}
+/* Reserve space for the floating control without shifting the mobile navigation. */
+.header{padding-right:76px}
+.card-brand{max-width:calc(100% - 80px)}
+[data-theme=dark]{
+  color-scheme:dark;--paper:#1c1418;--cream:#2d1c24;--wine:#d4b580;--wine-dark:#853d56;
+  --gold:#d4b580;--ink:#f5ebdd;--muted:#c5b2ae;--line:#60414d;
+}
+[data-theme=dark] .card-cover{background:#1c1418}
+[data-theme=dark] .card-footer{color:#c5b2ae}
+/* Keep the floral stationery ivory, including its own burgundy ink. */
+[data-theme=dark] .floral-card{--wine:#591c30;--gold:#805d30;color-scheme:light}
+[data-theme=dark] .story,[data-theme=dark] .rsvp-section{background:#2d1c24}
+[data-theme=dark] .chapter:before{background:#2d1c24}
+[data-theme=dark] .chapters{border-color:var(--line)}
+[data-theme=dark] .date-section{background:#2d1c24;color:#f5ebdd}
+[data-theme=dark] .calendar-legend{color:#f5ebdd}
+[data-theme=dark] .calendar-grid .chosen{color:#35131f}
+[data-theme=dark] .primary-button,[data-theme=dark] .bottom-nav a:last-child,[data-theme=dark] .card-continue{
+  background:#853d56;color:#fff3e5;border:1px solid #d4b58066;
+  box-shadow:inset 0 1px 0 #ffffff26;
+}
+[data-theme=dark] .elegant-form input::placeholder,[data-theme=dark] .elegant-form textarea::placeholder{color:#baa5a5}
+[data-theme=dark] .elegant-form input:not([type=radio]),[data-theme=dark] .elegant-form textarea,[data-theme=dark] .elegant-form select{border-color:#967180}
+[data-theme=dark] .radio-choice input{accent-color:#d4b580}
+[data-theme=dark] .elegant-form select option{background:#2d1c24;color:#f5ebdd}
+[data-theme=dark] .bottom-nav,[data-theme=dark] .header,[data-theme=dark] #menu.open{
+  background:#2d1c24e6;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+[data-theme=dark] .location-card{background:#2d1c24cc;box-shadow:inset 0 1px 0 #ffffff1a}
+[data-theme=dark] .closing{background:#1c1418}
+[data-theme=dark] .closing-glass{background:#2d1c24b3;border-color:#d4b58059;box-shadow:inset 0 1px 0 #ffffff26,0 18px 50px #0003}
+[data-theme=dark] .closing-glass:before{display:none}
+[data-theme=dark] .closing .eyebrow{color:#d4b580}
+[data-theme=dark] .theme-toggle,[data-theme=dark] .music-toggle{
+  background:#502737cc;color:#f1d7a7;border-color:#d4b58073;
+  box-shadow:inset 0 1px 0 #ffffff33,0 5px 20px #0003;
+}
+[data-theme=dark] .lightbox{color:#f5ebdd}
+@media(min-width:1000px){.header{padding-right:90px}}
+
+[data-theme=dark] .gallery button .photo-expand{background:#853d5699}

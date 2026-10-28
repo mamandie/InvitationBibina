@@ -37,7 +37,7 @@ function tick(){
 }
 tick();setInterval(tick,1000);
 C.events.forEach(event=>{const article=create('article','event reveal'),time=create('div','event-time',event.time);if (!/^\d/.test(event.time)) time.classList.add('unconfirmed');time.append(create('small','',event.icon));const content=create('div');content.append(create('p','event-date',event.dateLabel),create('h3','',event.title),create('p','event-place',event.place),create('p','event-description',event.text));if(event.address){const link=create('a','text-link','OUVRIR L’ITINÉRAIRE ↗');link.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(event.address)}`;link.target='_blank';link.rel='noopener';content.append(link);}article.append(time,content);$('#events').append(article);});
-C.photos.forEach((photo,i)=>{const button=create('button','gallery-photo reveal');button.type='button';button.style.setProperty('--photo-delay',`${i%2*120}ms`);button.setAttribute('aria-label',`Agrandir le souvenir ${i+1}`);button.hidden=i>=6;const img=create('img');img.src=photo.src;img.alt=photo.alt;img.loading='lazy';img.width=700;img.height=930;img.style.objectPosition=photo.position;button.append(img,create('span','','↗'));button.addEventListener('click',()=>openPhoto(i));$('#gallery').append(button);});
+C.photos.forEach((photo,i)=>{const button=create('button','gallery-photo reveal');button.type='button';button.style.setProperty('--photo-delay',`${i%2*120}ms`);button.setAttribute('aria-label',`Agrandir le souvenir ${i+1}`);button.hidden=i>=6;const img=create('img');img.src=photo.src;img.alt=photo.alt;img.loading='lazy';img.width=700;img.height=930;img.style.objectPosition=photo.position;const expandIcon=create('span','photo-expand');expandIcon.setAttribute('aria-hidden','true');expandIcon.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5"/></svg>';button.append(img,expandIcon);button.addEventListener('click',()=>openPhoto(i));$('#gallery').append(button);});
 $('#show-photos').addEventListener('click',()=>{const expanded=$('#show-photos').getAttribute('aria-expanded')!=='true';$('#show-photos').setAttribute('aria-expanded',String(expanded));$$('.gallery-photo').forEach((el,i)=>el.hidden=!expanded&&i>=6);$('#show-photos').textContent=expanded?'RÉDUIRE LES SOUVENIRS −':'TOUS LES SOUVENIRS ＋';});
 // Play silent films as they enter the viewport; stop downloading/playing offscreen.
 const visibleFilms=new Set();
@@ -131,9 +131,12 @@ function startMusic(){
 }
 function requestMusic(){
   wantsMusic=true;updateMusicControl();
-  $$('.films video').forEach(v=>v.pause());
+  $$('.films video').forEach(v=>{if(!v.muted)v.pause();});
   if(playerReady){startMusic();}
-  else if(!document.getElementById('youtube-api')){
+  else prepareMusic();
+}
+function prepareMusic(){
+  if(!document.getElementById('youtube-api')){
     const script=document.createElement('script');
     script.id='youtube-api';script.src='https://www.youtube.com/iframe_api';
     script.onerror=()=>{script.remove();pauseMusic();};
@@ -147,6 +150,7 @@ window.onYouTubeIframeAPIReady=()=>{
     events:{
       onReady:e=>{
         playerReady=true;
+        e.target.getIframe().setAttribute('allow','autoplay; encrypted-media');
         e.target.getIframe().title='Musique de l’invitation';
         e.target.getIframe().tabIndex=-1;
         if(wantsMusic)startMusic();
@@ -155,7 +159,7 @@ window.onYouTubeIframeAPIReady=()=>{
         playing=e.data===1;
         if(playing&&!wantsMusic){player.pauseVideo();return;}
         if(playing)firstMusic=false;
-        if(e.data===0||e.data===2)wantsMusic=false;
+        if(e.data===0&&wantsMusic){player.seekTo(C.musicStart,true);player.playVideo();}
         updateMusicControl();
       },
       onAutoplayBlocked:pauseMusic,
@@ -163,6 +167,8 @@ window.onYouTubeIframeAPIReady=()=>{
     }
   });
 };
+// Prepare the player before the first touch so the card click can start sound directly.
+prepareMusic();
 function pauseMusic(){
   wantsMusic=false;playing=false;
   if(playerReady)player.pauseVideo();
