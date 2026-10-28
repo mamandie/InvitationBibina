@@ -1,0 +1,1 @@
+{"name":"bibina-invitation","version":"1.0.0","private":true,"description":"Invitation de mariage mobile-first","scripts":{"dev":"python3 -m http.server 4173 --directory dist","build":"node scripts/check.mjs","test":"node scripts/check.mjs"}}
