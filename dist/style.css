@@ -131,7 +131,7 @@ footer>span:last-child{font-size:10px}
 /* The supplied floral card is shown blank, then its live text is revealed. */
 .card-cover{display:flex;justify-content:flex-start;padding:25px 18px 32px;gap:20px;background:radial-gradient(ellipse at 50% 30%,#fff9ef,#eadfce);overflow-y:auto}
 .card-cover:before,.card-cover:after{display:none}
-.card-brand{font:600 9px/1.6 var(--sans);letter-spacing:2px;color:var(--wine);display:flex;align-items:center;justify-content:center;gap:18px;text-align:center;flex-shrink:0}
+.card-brand{font:600 11px/1.6 var(--sans);letter-spacing:1.8px;color:var(--wine);display:flex;align-items:center;justify-content:center;gap:18px;text-align:center;flex-shrink:0}
 .card-brand>span{font-size:23px;color:var(--gold)}
 .floral-card{position:relative;width:min(100%,390px);flex-shrink:0;isolation:isolate;filter:drop-shadow(0 12px 18px #35131f20);perspective:1400px;container-type:inline-size}
 .card-art{display:block;width:100%;height:auto}
@@ -187,4 +187,4 @@ footer>span:last-child{font-size:10px}
 }
 .card-cover:not(.opening) .open-hint{margin:0}
 .card-cover:not(.opening) .card-footer{margin:0}
-.card-cover:not(.opening) .card-seal{width:clamp(44px,16cqw,64px);height:clamp(44px,16cqw,64px);font-size:clamp(17px,6cqw,23px)}
+.card-cover:not(.opening) .card-seal{width:clamp(60px,22cqw,80px);height:clamp(60px,22cqw,80px);font-size:clamp(22px,8cqw,29px)}
