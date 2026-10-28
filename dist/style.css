@@ -97,3 +97,10 @@ footer>span:last-child{font-size:10px}
 .calendar-legend{font-size:15px}
 @media(max-height:700px) and (max-width:599px){.letter{gap:6px;padding:10px 8px}.letter .eyebrow{font-size:9px}.letter-names{font-size:21px}.letter-date{font-size:14px}.cover-intro .cover-date{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.opening .letter{transform:translateY(-85%)}}
+
+/* A clear instruction pointing to the envelope. */
+.open-hint{color:var(--wine)}
+.open-hint p{font:700 14px/1.6 var(--sans);letter-spacing:.3px;text-transform:none;margin-top:8px;color:var(--wine)}
+.envelope-arrow{display:block;margin:0 auto;color:var(--wine);animation:point-to-envelope 1.8s ease-in-out infinite}
+@keyframes point-to-envelope{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(prefers-reduced-motion:reduce){.envelope-arrow{animation:none}}
