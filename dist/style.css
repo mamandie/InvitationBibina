@@ -173,3 +173,18 @@ footer>span:last-child{font-size:10px}
 .card-dates p>span{font-size:3cqw;margin-top:.5cqw}
 .card-place{font-size:3.6cqw;margin-top:2.5cqw}
 .card-place>span{font-size:2.8cqw;margin-top:.5cqw}
+
+/* Fit the closed card and its opening instruction within the mobile viewport. */
+.card-cover:not(.opening){
+  height:100svh;
+  min-height:0;
+  justify-content:center;
+  gap:10px;
+  padding:calc(16px + env(safe-area-inset-top)) 18px calc(16px + env(safe-area-inset-bottom));
+}
+.card-cover:not(.opening) .floral-card{
+  width:min(100%,390px,calc((100svh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .5625));
+}
+.card-cover:not(.opening) .open-hint{margin:0}
+.card-cover:not(.opening) .card-footer{margin:0}
+.card-cover:not(.opening) .card-seal{width:clamp(44px,16cqw,64px);height:clamp(44px,16cqw,64px);font-size:clamp(17px,6cqw,23px)}
