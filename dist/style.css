@@ -228,3 +228,9 @@ footer>span:last-child{font-size:10px}
 .card-dates p>span{font-size:5.2cqw;font-weight:700;line-height:1.2}
 .card-place{font-size:4cqw;font-weight:700;margin-top:2cqw}
 .card-place>span{font-size:3.1cqw;font-weight:600}
+
+.card-cover .card-brand,.card-cover .open-hint p{
+  font:700 clamp(22px,6vw,28px)/1.25 var(--script);
+  letter-spacing:0;text-transform:none;
+}
+.card-cover .card-brand{gap:12px}
