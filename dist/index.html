@@ -10,16 +10,23 @@
 </head>
 <body class="sealed">
 <a href="#invitation" class="skip">Aller à l’invitation</a>
-<div class="cover" id="cover">
-  <div class="cover-top"><span class="mini-star">✧</span><span>UNE PROMESSE, UNE VIE</span><span class="mini-star">✧</span></div>
-  <div class="cover-intro"><p class="eyebrow">UNE INVITATION TOUTE PARTICULIÈRE</p><h1>Le plus beau jour<br>se partage <em>avec vous.</em></h1><p>Vous êtes invité(e) à célébrer notre amour.</p><p class="cover-date" data-date>14 &amp; 15 novembre 2019</p></div>
-  <button class="envelope" id="open-envelope" aria-label="Ouvrir l’invitation de mariage">
-    <span class="envelope-back"></span><span class="letter"><span class="eyebrow">NOUS NOUS DISONS OUI</span><span class="letter-names"><span><span data-bride></span> <span data-bride-surname></span></span><span class="letter-amp">&amp;</span><span><span data-groom></span> <span data-groom-surname></span></span></span><span class="letter-date" data-date></span></span>
-    <span class="envelope-front"></span><span class="envelope-flap"></span><span class="wax"><span class="wax-initials" aria-hidden="true"><span>B</span><small>&amp;</small><span>M</span></span></span>
-    <span class="envelope-caption">À vous, avec amour</span>
-  </button>
-  <div class="open-hint"><svg class="envelope-arrow" viewBox="0 0 24 32" width="24" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 28V4M4 12l8-8 8 8"/></svg><p>Touchez l’enveloppe pour ouvrir</p></div>
-  <div class="cover-bottom"><span>FAIT AVEC AMOUR</span><span>✦</span><span>LE DÉBUT D’UN TOUJOURS</span></div>
+<div class="cover card-cover" id="cover">
+  <div class="card-brand"><span aria-hidden="true">✧</span> UNE PROMESSE, UNE VIE <span aria-hidden="true">✧</span></div>
+  <div class="floral-card">
+    <img class="card-art" src="assets/carte-invitation.png" width="1152" height="2048" alt="Carte ivoire aux motifs en relief et aux fleurs bordeaux" fetchpriority="high">
+    <button id="open-envelope" class="card-open" type="button" aria-label="Ouvrir notre invitation" aria-expanded="false" aria-controls="card-writing"><span class="card-seal" data-initials>B &amp; M</span></button>
+    <div id="card-writing" class="card-writing" aria-hidden="true" inert>
+      <p class="card-title">Invitation</p>
+      <p class="card-family">Avec leurs familles</p>
+      <h1 class="card-names"><span><span data-bride></span> <span data-bride-surname></span></span><i>&amp;</i><span><span data-groom></span> <span data-groom-surname></span></span></h1>
+      <p class="card-message">ont le bonheur de vous convier<br>à célébrer leur union.</p>
+      <div class="card-dates"><p><strong>14 novembre 2019</strong><span>Henné Time</span></p><p><strong>15 novembre 2019</strong><span>Takk Diakka</span></p></div>
+      <p class="card-place">Terrain Grand Médine<span>Keur Massar · Takk Diakka</span></p>
+    </div>
+  </div>
+  <div class="open-hint"><svg class="envelope-arrow" viewBox="0 0 24 32" width="24" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 28V4M4 12l8-8 8 8"/></svg><p>Touchez la carte pour ouvrir</p></div>
+  <button id="discover-invitation" class="card-continue" type="button" hidden>Découvrir notre histoire <span aria-hidden="true">↓</span></button>
+  <p class="card-footer">FAIT AVEC AMOUR · B &amp; M</p>
 </div>
 <div id="site" inert aria-hidden="true">
 <header class="header"><a href="#invitation" class="monogram" data-initials></a><span class="header-label">LE DÉBUT D’UN TOUJOURS</span><button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="menu">Menu <span>☰</span></button><nav id="menu" aria-label="Navigation principale"><a href="#histoire">Notre histoire</a><a href="#programme">Le grand jour</a><a href="#galerie">Les souvenirs</a><a href="#rsvp">Votre présence</a></nav></header>

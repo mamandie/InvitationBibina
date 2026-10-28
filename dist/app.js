@@ -57,8 +57,34 @@ const observer='IntersectionObserver'in window?new IntersectionObserver(entries=
 if(observer){document.documentElement.classList.add('js-ready');$$('.reveal').forEach(el=>observer.observe(el));}
 if('IntersectionObserver'in window){const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){$$('.bottom-nav a').forEach(a=>{const active=a.hash===`#${entry.target.id}`;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}}),{rootMargin:'-15% 0px -55% 0px'});['histoire','programme','galerie','rsvp'].forEach(id=>sectionObserver.observe($('#'+id)));}
 function finishOpening(){opened=true;opening=false;$('#site').inert=false;$('#site').removeAttribute('aria-hidden');$('#cover').classList.add('opened');document.body.classList.remove('sealed');$('#music-toggle').hidden=false;$('#invitation').setAttribute('tabindex','-1');$('#invitation').focus({preventScroll:true});}
-$('#open-envelope').addEventListener('click',()=>{if(opening||opened)return;opening=true;$('#cover').classList.add('opening');$('#open-envelope').disabled=true;requestMusic();setTimeout(finishOpening,reducedMotion?100:2300);});
-$('#replay').addEventListener('click',()=>{pauseMusic();$('#music-toggle').hidden=true;opened=false;window.scrollTo({top:0,behavior:'instant'});$('#cover').classList.remove('opened','opening');$('#open-envelope').disabled=false;document.body.classList.add('sealed');$('#open-envelope').focus({preventScroll:true});$('#site').inert=true;$('#site').setAttribute('aria-hidden','true');});
+$('#open-envelope').addEventListener('click',()=>{
+  if(opening||opened)return;
+  opening=true;
+  $('#cover').classList.add('opening');
+  $('#open-envelope').setAttribute('aria-expanded','true');
+  $('#open-envelope').hidden=true;
+  $('#card-writing').inert=false;
+  $('#card-writing').removeAttribute('aria-hidden');
+  $('#discover-invitation').hidden=false;
+  $('#music-toggle').hidden=false;
+  requestMusic();
+  $('#discover-invitation').focus({preventScroll:true});
+});
+$('#discover-invitation').addEventListener('click',finishOpening);
+$('#replay').addEventListener('click',()=>{
+  pauseMusic();$('#music-toggle').hidden=true;opened=false;opening=false;
+  window.scrollTo({top:0,behavior:'instant'});
+  $('#cover').classList.remove('opened','opening');
+  $('#cover').scrollTop=0;
+  $('#open-envelope').hidden=false;
+  $('#open-envelope').setAttribute('aria-expanded','false');
+  $('#card-writing').inert=true;
+  $('#card-writing').setAttribute('aria-hidden','true');
+  $('#discover-invitation').hidden=true;
+  document.body.classList.add('sealed');
+  $('#open-envelope').focus({preventScroll:true});
+  $('#site').inert=true;$('#site').setAttribute('aria-hidden','true');
+});
 // Request sound only after touching the envelope or the sound button.
 function updateMusicControl(){
   const button=$('#music-toggle');

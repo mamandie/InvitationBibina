@@ -104,3 +104,72 @@ footer>span:last-child{font-size:10px}
 .envelope-arrow{display:block;margin:0 auto;color:var(--wine);animation:point-to-envelope 1.8s ease-in-out infinite}
 @keyframes point-to-envelope{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @media(prefers-reduced-motion:reduce){.envelope-arrow{animation:none}}
+
+/* Ivory stationery, burgundy florals and a satin bow inspired by the reference. */
+.envelope-back{background:#e1d6c8;border:1px solid #d4c3b0}
+.envelope-front{background:linear-gradient(145deg,#fffdf7,#eee5d8);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+.envelope-front:after{background:linear-gradient(28deg,#f8f1e6 48%,#d9caba 49%,#fffaf1 50%);z-index:-1}
+.envelope-flap{background:linear-gradient(165deg,#fffdf8,#e7dccb);filter:drop-shadow(0 1px 1px #61463120)}
+.envelope-caption{color:var(--wine);text-shadow:0 1px #fff8}
+.envelope-bouquet{position:absolute;width:115px;height:90px;z-index:1;pointer-events:none}
+.bouquet-top{right:-10px;top:8px;transform:rotate(20deg)}
+.bouquet-bottom{left:-10px;bottom:-8px;transform:rotate(195deg)}
+.envelope-bouquet i{position:absolute;display:block;width:37px;height:37px;left:42px;top:17px;background:radial-gradient(ellipse at 50% 27%,#aa4059 0 22%,transparent 24%),radial-gradient(ellipse at 76% 44%,#79233f 0 23%,transparent 25%),radial-gradient(ellipse at 66% 75%,#a63b55 0 23%,transparent 25%),radial-gradient(ellipse at 30% 72%,#6e2039 0 23%,transparent 25%),radial-gradient(ellipse at 23% 40%,#bd5266 0 23%,transparent 25%);filter:drop-shadow(0 1px 1px #35131f25);transform:rotate(-15deg)}
+.envelope-bouquet i:nth-child(2){left:69px;top:39px;width:32px;height:32px;transform:rotate(25deg)}
+.envelope-bouquet i:nth-child(3){left:15px;top:37px;width:29px;height:29px;transform:rotate(-35deg)}
+.envelope-bouquet b{position:absolute;width:17px;height:37px;left:47px;top:44px;border-radius:100% 0 100% 0;background:linear-gradient(135deg,#81836a,#4b5445);transform:rotate(32deg);z-index:-1}
+.envelope-bouquet b:last-child{left:85px;top:17px;transform:rotate(65deg);height:30px}
+.envelope-ribbon{position:absolute;inset:0;z-index:4;pointer-events:none;transition:opacity .35s ease,transform .6s ease}
+.ribbon-band{position:absolute;left:15%;top:0;bottom:0;width:15px;background:linear-gradient(90deg,#54182c,#943a50 40%,#b75c6e 52%,#6c2038);box-shadow:2px 0 3px #35131f18}
+.ribbon-bow{position:absolute;left:calc(15% - 1px);top:46%;width:19px;height:20px;border-radius:5px;background:linear-gradient(100deg,#601b31,#a64960,#591c30);box-shadow:0 2px 3px #35131f40;transform:rotate(-12deg)}
+.ribbon-bow:before,.ribbon-bow:after{content:'';position:absolute;top:-12px;width:36px;height:29px;border:1px solid #78253e;background:linear-gradient(145deg,#b85870,#751f3a 60%,#491027);box-shadow:inset 0 2px 4px #d88d9730,0 2px 3px #35131f25}
+.ribbon-bow:before{right:12px;border-radius:65% 40% 15% 45%;transform:rotate(25deg)}
+.ribbon-bow:after{left:12px;border-radius:40% 65% 45% 15%;transform:rotate(-25deg)}
+.opening .envelope-ribbon{opacity:0;transform:translateX(-22px)}
+.letter{border-color:#cdb9a0;box-shadow:0 1px 8px #35131f12}
+
+/* The supplied floral card is shown blank, then its live text is revealed. */
+.card-cover{display:flex;justify-content:flex-start;padding:25px 18px 32px;gap:20px;background:radial-gradient(ellipse at 50% 30%,#fff9ef,#eadfce);overflow-y:auto}
+.card-cover:before,.card-cover:after{display:none}
+.card-brand{font:600 9px/1.6 var(--sans);letter-spacing:2px;color:var(--wine);display:flex;align-items:center;justify-content:center;gap:18px;text-align:center;flex-shrink:0}
+.card-brand>span{font-size:23px;color:var(--gold)}
+.floral-card{position:relative;width:min(100%,390px);flex-shrink:0;isolation:isolate;filter:drop-shadow(0 12px 18px #35131f20);perspective:1400px;container-type:inline-size}
+.card-art{display:block;width:100%;height:auto}
+.card-open{position:absolute;inset:0;z-index:2;background:transparent;display:grid;place-items:center;width:100%;padding:0}
+.card-open:focus-visible{outline:3px solid var(--wine);outline-offset:5px}
+.card-seal{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#aa5266,#591c30 75%);color:#fff1d9;font:600 23px/1 var(--serif);box-shadow:inset 0 0 0 3px #b36b7a,inset 0 0 0 5px #732b42,0 4px 10px #35131f40;animation:card-seal-breathe 3s ease-in-out infinite}
+.card-writing{position:absolute;top:22%;left:17%;right:17%;bottom:21%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#591c30;opacity:0;transform:translateY(15px);transition:opacity 1s ease .2s,transform 1s ease .2s;pointer-events:none}
+.card-writing:before{content:'';position:absolute;inset:-12px -7px;background:#fff9efb8;border-radius:45%;filter:blur(10px);z-index:-1}
+.card-title{font:600 clamp(20px,7.8cqw,30px)/1.2 var(--serif);text-transform:uppercase;letter-spacing:1px}
+.card-family{font:600 clamp(10px,3cqw,12px)/1.5 var(--sans);margin-top:12px}
+.card-names{display:flex;flex-direction:column;align-items:center;margin:13px 0;font:500 clamp(22px,7.6cqw,30px)/1.15 var(--serif);letter-spacing:-.5px}
+.card-names>span{display:block}
+.card-names i{font:italic 20px/1.1 var(--serif);margin:4px 0;color:#805d30}
+.card-message{font:500 clamp(11px,3.3cqw,13px)/1.5 var(--sans)}
+.card-dates{width:100%;margin-top:14px;border-top:1px solid #a28055;border-bottom:1px solid #a28055;padding:10px 0;display:grid;gap:9px}
+.card-dates strong{display:block;font:700 clamp(15px,4.9cqw,19px)/1.3 var(--serif)}
+.card-dates p>span{display:block;font:600 clamp(10px,3cqw,12px)/1.5 var(--sans);margin-top:2px}
+.card-place{font:600 clamp(11px,3.5cqw,14px)/1.4 var(--serif);margin-top:12px}
+.card-place>span{display:block;font:500 clamp(9px,2.8cqw,11px)/1.5 var(--sans);margin-top:3px}
+.card-cover.opening .card-writing{opacity:1;transform:none;pointer-events:auto}
+.card-cover.opening .open-hint{display:none}
+.card-cover .open-hint{flex-shrink:0}
+.card-cover .open-hint p{font-size:14px}
+.card-continue{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:18px;background:var(--wine);color:#fff8ed;border:1px solid #8b4357;border-radius:30px;min-height:48px;padding:12px 24px;font:600 13px/1.5 var(--sans);animation:card-continue-in .6s ease}
+.card-footer{font:600 9px/1.5 var(--sans);letter-spacing:1.3px;color:#71502c;text-align:center;flex-shrink:0}
+.music-toggle{z-index:75}
+@keyframes card-seal-breathe{50%{transform:scale(1.045);box-shadow:inset 0 0 0 3px #b36b7a,inset 0 0 0 5px #732b42,0 5px 18px #35131f50}}
+@keyframes card-continue-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(min-width:800px){.card-cover{padding-top:30px}.floral-card{width:390px}}
+@media(prefers-reduced-motion:reduce){.card-seal,.card-continue{animation:none}.card-writing{transition:none;transform:none}}
+/* Scale spacing together with the artwork so writing stays inside its frame. */
+.card-title{font-size:7cqw}
+.card-family{font-size:3cqw;margin-top:2cqw}
+.card-names{font-size:7cqw;margin:2.5cqw 0;line-height:1.1}
+.card-names i{font-size:4.5cqw;margin:1cqw 0}
+.card-message{font-size:3.1cqw;line-height:1.5}
+.card-dates{margin-top:3cqw;padding:2cqw 0;gap:2cqw}
+.card-dates strong{font-size:4.8cqw;line-height:1.25}
+.card-dates p>span{font-size:3cqw;margin-top:.5cqw}
+.card-place{font-size:3.6cqw;margin-top:2.5cqw}
+.card-place>span{font-size:2.8cqw;margin-top:.5cqw}
