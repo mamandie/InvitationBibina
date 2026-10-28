@@ -10,6 +10,7 @@ window.WEDDING = {
   youtubeId: 'tvqTdceUYu0', musicStart: 35,
   // Numéro international, chiffres uniquement. Exemple : 221XXXXXXXXX.
   whatsapp: '',
+  contactEmail: 'dieniang32@gmail.com',
   // Activez seulement après déploiement sur Netlify et vérification de Forms.
   netlifyForms: false,
   story: [

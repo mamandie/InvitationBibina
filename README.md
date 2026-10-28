@@ -59,3 +59,10 @@ Formats à contrôler : 428×926 (iPhone 12 Pro Max), 390×844 (iPhone 13/14), 3
 Les essais dans le navigateur intégré ont finalement pu être réalisés : ouverture/rejeu de l’enveloppe, affichage mobile et desktop, absence de débordement aux six formats demandés, navigation de la galerie, expansion des 13 photos, préparation des deux formulaires et lecture YouTube avec paramètre start=35. Voir `VERIFICATION.md`. Ces essais de dimensions dans Chromium ne remplacent pas les essais sur de vrais appareils Safari iOS et Chrome Android.
 
 Les deux journées sont définies dans `events` et surlignées dans le calendrier. Le lieu du Henné Time et les horaires restent à préciser. Pour les dates passées, le compte à rebours et le bouton d’ajout au calendrier sont masqués.
+
+
+## Envoi des formulaires par e-mail
+
+Les réponses et le livre d’or utilisent l’API AJAX de FormSubmit (https://formsubmit.co), avec `contactEmail` dans `dist/config.js` comme destinataire. Aucune clé privée n’est nécessaire. Les noms et messages saisis sont transmis à ce service, puis par e-mail aux organisateurs.
+
+Après déploiement, soumettre un message de test depuis le site puis ouvrir l’e-mail d’activation reçu à dieniang32@gmail.com et cliquer sur le lien de confirmation (vérifier les indésirables). Envoyer ensuite un second test pour vérifier la réception effective. Un changement d’adresse nécessite une nouvelle activation. La confirmation du navigateur signifie que le service a accepté le message, pas que la boîte destinataire l’a reçu. En cas d’échec, le formulaire conserve les données et propose un envoi par application mail ou un téléchargement.

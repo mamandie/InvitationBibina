@@ -14,6 +14,6 @@ for(const path of ['style.css','app.js','config.js','assets/favicon.svg'])assert
 const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert(ids.length===new Set(ids).size,'Identifiants uniques');
 for(const m of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(m[1]),`Ancre manquante: ${m[1]}`);
 for(const m of js.matchAll(/\$\('#([a-z][a-z-]*)'\)/g))assert(ids.includes(m[1]),`Élément manquant: ${m[1]}`);
-assert(html.includes('viewport-fit=cover'));assert(html.includes('data-netlify="true"'));
+assert(html.includes('viewport-fit=cover'));assert(c.contactEmail==='dieniang32@gmail.com');
 const bytes=readdirSync(new URL('assets/',base)).reduce((sum,p)=>sum+statSync(new URL('assets/'+p,base)).size,0);
 console.log(`Vérification réussie : JavaScript, configuration, ${c.photos.length} images, ${c.videos.length} vidéos, ancres et contrôles. Médias : ${(bytes/1024/1024).toFixed(2)} Mo, chargement différé.`);

@@ -185,8 +185,41 @@ $('#calendar-download').addEventListener('click',()=>{
   downloadable(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Bibina//Invitation//FR',...events,'END:VCALENDAR',''].join('\r\n'),'notre-mariage.ics','text/calendar;charset=utf-8').click();
 });
 $$('input[name="attendance"]').forEach(input=>input.addEventListener('change',()=>{$('#guests-wrap').hidden=input.value==='non'&&input.checked;$('#guest-count').disabled=$('input[name="attendance"]:checked').value==='non';}));
-const netlifyEnabled=C.netlifyForms===true;
-if(netlifyEnabled){$('#rsvp-submit').innerHTML='CONFIRMER MA PRÉSENCE <span>↗</span>';$('#rsvp-note').textContent='Votre réponse sera transmise aux organisateurs via Netlify Forms.';$('#guestbook-form button').textContent='ENVOYER MON MESSAGE ↗';$('#guestbook-note').textContent='Votre message sera transmis aux organisateurs. Il restera privé jusqu’à leur validation.';}
-async function submitForm(form,result,text,filename){result.replaceChildren();const submit=form.querySelector('button[type=submit]');if(netlifyEnabled){submit.disabled=true;try{const response=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()});if(!response.ok)throw Error('Envoi impossible');result.textContent='Merci ! Votre message a été transmis aux organisateurs. Il ne sera pas publié automatiquement.';form.reset();}catch{result.textContent='L’envoi n’a pas abouti. Aucun enregistrement ne peut être confirmé. Vous pouvez conserver votre réponse ci-dessous.';result.append(downloadable(text,filename));}finally{submit.disabled=false;}}else{result.append(create('p','','Votre message est prêt. Il n’a pas encore été envoyé. Téléchargez-le pour le conserver et le transmettre aux organisateurs.'),downloadable(text,filename));if(C.whatsapp){const a=create('a','','Transmettre par WhatsApp ↗');a.href=`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`;a.target='_blank';a.rel='noopener';result.append(a);}}}
+$('#rsvp-submit').innerHTML='ENVOYER MA RÉPONSE <span>↗</span>';
+$('#guestbook-form button').textContent='ENVOYER MON MESSAGE ↗';
+$('#rsvp-note').textContent='Votre réponse sera envoyée par e-mail aux organisateurs via FormSubmit.';
+$('#guestbook-note').textContent='Votre message sera envoyé par e-mail aux organisateurs via FormSubmit. Il reste privé.';
+async function submitForm(form,result,text,filename){
+  const submit=form.querySelector('button[type=submit]');
+  if(submit.disabled)return;
+  if(new FormData(form).get('bot-field'))return;
+  result.replaceChildren();
+  const original=submit.textContent;
+  submit.disabled=true;submit.textContent='ENVOI EN COURS…';form.setAttribute('aria-busy','true');
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),20000);
+  try{
+    const response=await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(C.contactEmail)}`,{
+      method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},signal:controller.signal,
+      body:JSON.stringify({
+        name:new FormData(form).get('name'),message:text,
+        _subject:form.id==='rsvp-form'?'Réponse au mariage de M. et Mme Kane':'Livre d’or de M. et Mme Kane',
+        _template:'table',_url:location.href.split('#')[0],_honey:''
+      })
+    });
+    const data=await response.json();
+    if(!response.ok||(data.success!==true&&data.success!=='true'))throw Error('Envoi non confirmé');
+    result.textContent='Merci ! Votre message a été pris en charge pour être envoyé aux organisateurs. Il ne sera pas publié sur le site.';
+    form.reset();
+    if(form.id==='rsvp-form'){$('#guests-wrap').hidden=false;$('#guest-count').disabled=false;}
+  }catch{
+    result.append(create('p','','L’envoi n’a pas pu être confirmé. Vos informations sont conservées dans le formulaire. Réessayez ou envoyez votre message par e-mail ci-dessous.'));
+    const fallback=create('a','','Envoyer par mon application e-mail ↗');
+    fallback.href=`mailto:${C.contactEmail}?subject=${encodeURIComponent('Mariage de M. et Mme Kane')}&body=${encodeURIComponent(text)}`;
+    result.append(fallback,downloadable(text,filename));
+  }finally{
+    clearTimeout(timeout);submit.disabled=false;submit.textContent=original;form.removeAttribute('aria-busy');
+  }
+}
 $('#rsvp-form').addEventListener('submit',e=>{e.preventDefault();const data=new FormData(e.currentTarget);const yes=data.get('attendance')==='oui';const text=`Mariage de ${fullNames}\n${C.dateLabel}\nNom : ${data.get('name')}\nPrésence : ${yes?'Oui, avec plaisir':'Non, en pensée avec vous'}\nPersonnes : ${yes?data.get('guests'):0}\n`;submitForm(e.currentTarget,$('#rsvp-result'),text,'ma-reponse-mariage.txt');});
 $('#guestbook-form').addEventListener('submit',e=>{e.preventDefault();const data=new FormData(e.currentTarget);submitForm(e.currentTarget,$('#wish-result'),`Pour ${fullNames}\nDe : ${data.get('name')}\n\n${data.get('message')}\n`,'un-mot-pour-vous.txt');});
