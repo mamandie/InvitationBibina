@@ -5,6 +5,7 @@ const $$ = s => [...document.querySelectorAll(s)];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fullNames = `${[C.bride, C.brideSurname].filter(Boolean).join(' ')} & ${[C.groom, C.groomSurname].filter(Boolean).join(' ')}`;
 const date = new Date(C.date);
+let openingTimer;
 let opened = false, opening = false, player, playerReady = false, wantsMusic = false, playing = false, firstMusic = true;
 
 function setText(selector, value) { $$(selector).forEach(el => { el.textContent = value; }); }
@@ -85,19 +86,25 @@ $('#open-envelope').addEventListener('click',()=>{
   opening=true;
   $('#cover').classList.add('opening');
   $('#open-envelope').setAttribute('aria-expanded','true');
-  $('#open-envelope').hidden=true;
+  $('#open-envelope').disabled=true;
   $('#card-writing').inert=false;
   $('#card-writing').removeAttribute('aria-hidden');
-  $('#discover-invitation').hidden=false;
+  openingTimer=setTimeout(()=>{
+    $('#cover').classList.add('unsealed');
+    $('#open-envelope').hidden=true;
+    $('#discover-invitation').hidden=false;
+    $('#discover-invitation').focus({preventScroll:true});
+  },reducedMotion?0:3200);
   $('#music-toggle').hidden=false;
   requestMusic();
-  $('#discover-invitation').focus({preventScroll:true});
 });
 $('#discover-invitation').addEventListener('click',finishOpening);
 $('#replay').addEventListener('click',()=>{
   pauseMusic();$('#music-toggle').hidden=true;opened=false;opening=false;
   window.scrollTo({top:0,behavior:'instant'});
-  $('#cover').classList.remove('opened','opening');
+  clearTimeout(openingTimer);
+  $('#cover').classList.remove('opened','opening','unsealed');
+  $('#open-envelope').disabled=false;
   $('#cover').scrollTop=0;
   $('#open-envelope').hidden=false;
   $('#open-envelope').setAttribute('aria-expanded','false');

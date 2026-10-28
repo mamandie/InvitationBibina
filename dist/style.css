@@ -234,3 +234,33 @@ footer>span:last-child{font-size:10px}
   letter-spacing:0;text-transform:none;
 }
 .card-cover .card-brand{gap:12px}
+
+/* Hinged paper doors reveal the invitation underneath. */
+.card-doors{position:absolute;inset:0;z-index:3;pointer-events:none;perspective:1400px}
+.card-door{position:absolute;top:0;bottom:0;width:50%;background-image:url('assets/carte-invitation.png');background-size:200% 100%;backface-visibility:hidden;transition:transform 2.3s cubic-bezier(.22,.65,.25,1) .55s,filter 2.3s ease .55s;box-shadow:0 0 1px #805d3055}
+.card-door-left{left:0;background-position:left center;transform-origin:left center}
+.card-door-right{right:0;background-position:right center;transform-origin:right center}
+.card-door:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,#fff8,transparent 40%,#35131f18);opacity:0;transition:opacity 1.5s ease}
+.card-cover .card-open{z-index:4}
+.card-cover.opening .card-open{pointer-events:none}
+.card-cover.opening .card-seal{animation:seal-lift .65s ease forwards}
+.card-cover.opening .card-door-left{transform:rotateY(-105deg);filter:brightness(.88)}
+.card-cover.opening .card-door-right{transform:rotateY(105deg);filter:brightness(.88)}
+.card-cover.opening .card-door:after{opacity:1}
+.card-cover.opening .card-writing{transition:opacity 1.2s ease 1.2s,transform 1.5s ease 1.2s}
+.card-cover.opening .card-writing>*{animation:invitation-ink 1s ease both}
+.card-cover.opening .card-title{animation-delay:1.3s}
+.card-cover.opening .card-family{animation-delay:1.5s}
+.card-cover.opening .card-names{animation-delay:1.7s}
+.card-cover.opening .card-message{animation-delay:1.9s}
+.card-cover.opening .card-dates{animation-delay:2.1s}
+.card-cover.opening .card-place{animation-delay:2.3s}
+@keyframes seal-lift{to{opacity:0;transform:translateY(-20px) translateZ(60px) scale(1.15)}}
+@keyframes invitation-ink{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.card-cover.opening .card-doors{display:none}.card-cover.opening .card-seal{opacity:0}.card-cover.opening .card-writing{transition:none}}
+
+/* Keep the paper in place while the hinges move. */
+.card-cover.opening{height:100svh;min-height:0;justify-content:center;gap:10px;padding:calc(16px + env(safe-area-inset-top)) 18px calc(16px + env(safe-area-inset-bottom));overflow-x:hidden}
+.card-cover.opening .floral-card{width:min(100%,390px,calc((100svh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * .5625))}
+.card-cover.opening .card-footer{margin:0}
+.card-cover.opening:not(.unsealed):after{content:'';display:block;position:static;height:48px;flex-shrink:0}
