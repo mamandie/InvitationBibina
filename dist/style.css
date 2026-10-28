@@ -79,3 +79,21 @@ footer>span:last-child{font-size:10px}
 .music-toggle.is-playing{box-shadow:0 5px 20px #35131f18,inset 0 1px 0 #ffffffb3,0 0 0 5px #b2956c12}
 @keyframes music-note-dance{0%,100%{transform:rotate(-12deg) translateY(1px)}25%{transform:rotate(0deg) translateY(-2px)}50%{transform:rotate(12deg) translateY(1px)}75%{transform:rotate(0deg) translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){.music-toggle.is-playing svg{animation:none}}
+
+/* Keep the opening card opaque and separate from the introductory copy. */
+.cover-intro .cover-date{font:600 clamp(21px,5.6vw,28px)/1.4 var(--sans);color:var(--wine);letter-spacing:.3px;margin-top:18px}
+.cover-intro{transition:opacity .35s ease}
+.opening .cover-intro{opacity:0;pointer-events:none}
+.envelope:disabled{opacity:1;cursor:default}
+.letter{top:0;height:100%;padding:14px 10px;gap:9px;background:#fffaf3;justify-content:flex-start;color:var(--wine)}
+.letter .eyebrow{font:600 10px/1.5 var(--sans);letter-spacing:1px;color:var(--wine)}
+.letter-names{display:flex;flex-direction:column;align-items:center;gap:3px;max-width:100%;font:600 clamp(20px,5.3vw,27px)/1.15 var(--serif);color:var(--wine)}
+.letter-names>span{display:block}
+.letter-names .letter-amp{font:italic 17px/1 var(--serif);color:#70502c}
+.letter-date{font:600 14px/1.4 var(--sans);letter-spacing:0;color:var(--wine)}
+.opening .letter{transform:translateY(-85%)}
+.event-date{font-size:16px;line-height:1.5}
+.date-line,.hero .date-line{font-size:17px;line-height:1.6;letter-spacing:.5px}
+.calendar-legend{font-size:15px}
+@media(max-height:700px) and (max-width:599px){.letter{gap:6px;padding:10px 8px}.letter .eyebrow{font-size:9px}.letter-names{font-size:21px}.letter-date{font-size:14px}.cover-intro .cover-date{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.opening .letter{transform:translateY(-85%)}}
