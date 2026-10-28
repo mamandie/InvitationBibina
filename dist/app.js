@@ -38,7 +38,30 @@ tick();setInterval(tick,1000);
 C.events.forEach(event=>{const article=create('article','event reveal'),time=create('div','event-time',event.time);if (!/^\d/.test(event.time)) time.classList.add('unconfirmed');time.append(create('small','',event.icon));const content=create('div');content.append(create('p','event-date',event.dateLabel),create('h3','',event.title),create('p','event-place',event.place),create('p','event-description',event.text));if(event.address){const link=create('a','text-link','OUVRIR L’ITINÉRAIRE ↗');link.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(event.address)}`;link.target='_blank';link.rel='noopener';content.append(link);}article.append(time,content);$('#events').append(article);});
 C.photos.forEach((photo,i)=>{const button=create('button','gallery-photo reveal');button.type='button';button.style.setProperty('--photo-delay',`${i%2*120}ms`);button.setAttribute('aria-label',`Agrandir le souvenir ${i+1}`);button.hidden=i>=6;const img=create('img');img.src=photo.src;img.alt=photo.alt;img.loading='lazy';img.width=700;img.height=930;img.style.objectPosition=photo.position;button.append(img,create('span','','↗'));button.addEventListener('click',()=>openPhoto(i));$('#gallery').append(button);});
 $('#show-photos').addEventListener('click',()=>{const expanded=$('#show-photos').getAttribute('aria-expanded')!=='true';$('#show-photos').setAttribute('aria-expanded',String(expanded));$$('.gallery-photo').forEach((el,i)=>el.hidden=!expanded&&i>=6);$('#show-photos').textContent=expanded?'RÉDUIRE LES SOUVENIRS −':'TOUS LES SOUVENIRS ＋';});
-C.videos.forEach((src,i)=>{const video=create('video');video.src=src;video.controls=true;video.preload='none';video.playsInline=true;video.poster=C.photos[i?4:0].src;video.setAttribute('aria-label',`Vidéo souvenir ${i+1}`);video.addEventListener('play',()=>{pauseMusic();$$('.films video').forEach(other=>{if(other!==video)other.pause();});});$('#films').append(video);});
+// Play silent films as they enter the viewport; stop downloading/playing offscreen.
+const visibleFilms=new Set();
+function playVisibleFilms(){if(!document.hidden)visibleFilms.forEach(video=>{video.play()?.catch(()=>{});});}
+const filmObserver='IntersectionObserver'in window?new IntersectionObserver(entries=>{
+  entries.forEach(({target:video,isIntersecting})=>{
+    if(isIntersecting){visibleFilms.add(video);if(!document.hidden)video.play()?.catch(()=>{});}
+    else{visibleFilms.delete(video);video.pause();}
+  });
+},{threshold:0,rootMargin:'0px'}):null;
+C.videos.forEach((src,i)=>{
+  const video=create('video');
+  video.src=src;video.controls=true;video.preload='metadata';video.playsInline=true;
+  video.muted=true;video.defaultMuted=true;video.loop=true;
+  video.setAttribute('muted','');video.setAttribute('playsinline','');
+  video.poster=C.photos[i?4:0].src;
+  video.setAttribute('aria-label',`Vidéo souvenir ${i+1}`);
+  const keepSoundClear=()=>{if(!video.muted){pauseMusic();$$('.films video').forEach(other=>{if(other!==video&&!other.muted)other.pause();});}};
+  video.addEventListener('play',keepSoundClear);
+  video.addEventListener('volumechange',()=>{if(!video.paused)keepSoundClear();});
+  $('#films').append(video);
+  if(filmObserver)filmObserver.observe(video);
+  else{video.autoplay=true;}
+});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)playVisibleFilms();});
 // Fullscreen gallery: modal focus trap is handled by native <dialog>.
 let photoIndex=0, lastPhotoButton, touchStart=null;
 function renderPhoto(){const p=C.photos[photoIndex];$('#lightbox-image').src=p.src;$('#lightbox-image').alt=p.alt;$('#lightbox-caption').textContent=p.alt;$('#photo-counter').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(C.photos.length).padStart(2,'0')}`;}

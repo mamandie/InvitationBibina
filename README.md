@@ -16,7 +16,7 @@ Le dossier déployable est `dist/`. Le serveur local est uniquement destiné au 
 
 ## Personnaliser
 
-Modifier `dist/config.js` : prénoms, initiales, date ISO avec fuseau, date affichée, ville, textes, étapes de l’histoire, cérémonies, adresses, images et vidéos. Les noms Bintou Niang et Mansour Kane, les dates du 14 novembre 2019 (Henné Time) et du 15 novembre 2019 (Takk Diakka) et le lieu Terrain Grand Médine, Keur Massar sont renseignés. `demo` est désormais `false`. Les horaires et le récit restent à compléter. `dateOnly: true` exporte le mariage comme événement de journée entière, sans inventer d’heure. Les noms de famille sont configurés séparément pour conserver une belle composition mobile. Adapter aussi les métadonnées Open Graph dans `dist/index.html` à l’adresse publique finale, et vérifier les descriptions des images.
+Modifier `dist/config.js` : prénoms, initiales, date ISO avec fuseau, date affichée, ville, textes, étapes de l’histoire, cérémonies, adresses, images et vidéos. Les noms Bintou Niang et Mansour Kane, les dates du 14 novembre 2026 (Henné Time) et du 15 novembre 2026 (Takk Diakka) et le lieu Terrain Grand Médine, Keur Massar sont renseignés. `demo` est désormais `false`. Les horaires et le récit restent à compléter. `dateOnly: true` exporte le mariage comme événement de journée entière, sans inventer d’heure. Les noms de famille sont configurés séparément pour conserver une belle composition mobile. Adapter aussi les métadonnées Open Graph dans `dist/index.html` à l’adresse publique finale, et vérifier les descriptions des images.
 
 Pour les lieux, renseigner `events[].address` avec une adresse exacte : le bouton Google Maps apparaîtra automatiquement. Aucune adresse précise n’a été inventée.
 
