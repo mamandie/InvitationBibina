@@ -1,8 +1,5 @@
 (() => {
   const root = document.documentElement;
-  const preference = window.matchMedia('(prefers-color-scheme: dark)');
-  let saved;
-  try { saved = localStorage.getItem('bibina-theme'); } catch {}
   function apply(theme) {
     root.dataset.theme = theme;
     const dark = theme === 'dark';
@@ -14,14 +11,11 @@
       button.title = dark ? 'Mode clair' : 'Mode sombre';
     }
   }
-  apply(saved === 'dark' || saved === 'light' ? saved : preference.matches ? 'dark' : 'light');
-  preference.addEventListener('change', event => { if (!saved) apply(event.matches ? 'dark' : 'light'); });
+  apply('light');
   document.addEventListener('DOMContentLoaded', () => {
     apply(root.dataset.theme);
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      saved = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      apply(saved);
-      try { localStorage.setItem('bibina-theme', saved); } catch {}
+      apply(root.dataset.theme === 'dark' ? 'light' : 'dark');
     });
   });
 })();

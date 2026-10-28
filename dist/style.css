@@ -277,3 +277,31 @@ footer>span:last-child{font-size:10px}
 .lightbox-controls button{
   display:grid;place-items:center;padding:0;line-height:1;flex-shrink:0;
 }
+
+/* A single soft arrival, then the stationery rests until touched. */
+.card-cover:not(.opening):not(.opened) .floral-card{
+  animation:card-arrive 3.6s cubic-bezier(.25,.45,.3,1) both;
+  transform-origin:50% 65%;
+}
+@keyframes card-arrive{
+  0%{opacity:0;transform:translateY(-65svh) rotate(-7deg) scale(.96);filter:drop-shadow(0 28px 28px #35131f0a)}
+  18%{opacity:1}
+  78%{transform:translateY(5px) rotate(.6deg) scale(1);filter:drop-shadow(0 9px 14px #35131f20)}
+  100%{opacity:1;transform:translateY(0) rotate(0) scale(1);filter:drop-shadow(0 12px 18px #35131f20)}
+}
+@media(prefers-reduced-motion:reduce){
+  .card-cover:not(.opening):not(.opened) .floral-card{animation:none}
+}
+
+/* Reveal whole, connected calligraphy progressively without splitting its glyphs. */
+.card-brand>.intro-writing{font:inherit;color:inherit}
+.intro-writing{display:inline-block;max-width:100%;vertical-align:bottom;clip-path:inset(-20% -12% -25% -12%)}
+.card-cover:not(.opening):not(.opened) .intro-motto{animation:intro-writing 1.7s steps(20,end) .25s both}
+.card-cover:not(.opening):not(.opened) .intro-instruction{animation:intro-writing 1.9s steps(28,end) 3.6s both}
+@keyframes intro-writing{
+  from{clip-path:inset(-20% 100% -25% -12%)}
+  to{clip-path:inset(-20% -12% -25% -12%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .card-cover:not(.opening):not(.opened) .intro-writing{animation:none;clip-path:none}
+}
